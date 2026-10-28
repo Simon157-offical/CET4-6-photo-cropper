@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f4f6f2">
-  <meta name="description" content="在浏览器本地裁切证件照，导出 144×192 JPG，满足 CET-4/CET-6 报名照片尺寸要求。">
+  <meta name="description" content="在浏览器本地裁切证件照，自定义输出比例、尺寸和格式。照片不上传。">
   <title>证件照轻裁 · CET 报名照片</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -49,7 +49,7 @@
               <span class="stage-badge">3:4 裁切框</span>
             </div>
           </div>
-          <div class="crop-hint"><span class="hint-icon" aria-hidden="true">✳</span><span>拖动照片调整位置</span><span class="hint-separator">·</span><span>用滑杆缩放</span></div>
+          <div class="crop-hint"><span class="hint-icon" aria-hidden="true">✳</span><span>拖动调整</span><span class="hint-separator">·</span><span class="desktop-hint">滚轮缩放</span><span class="mobile-hint">双指缩放</span><span class="hint-separator">·</span><span>滑杆围绕画面中心缩放</span></div>
           <div class="zoom-control">
             <span class="zoom-label">缩放</span>
             <button class="zoom-button" id="zoom-out" type="button" aria-label="缩小照片">−</button>
@@ -63,12 +63,30 @@
 
       <aside class="export-card" aria-label="导出设置">
         <div class="card-heading export-heading"><div><span class="step-index">02</span><h2>导出规格</h2></div></div>
-        <div class="spec-intro"><div class="spec-icon" aria-hidden="true">▧</div><div><strong>报名照片标准</strong><span>系统将自动优化文件大小</span></div></div>
-        <div class="spec-list">
-          <div class="spec-row"><span>照片尺寸</span><strong>144 <i>×</i> 192 <small>px</small></strong></div>
-          <div class="spec-row"><span>文件格式</span><strong><span class="format-dot"></span>JPG</strong></div>
-          <div class="spec-row"><span>文件大小</span><strong>≤ 200 <small>KB</small></strong></div>
+        <div class="spec-intro"><div class="spec-icon" aria-hidden="true">▧</div><div><strong>自定义输出</strong><span>选择尺寸与格式，照片仅在本机处理</span></div></div>
+        <div class="settings-group">
+          <label class="setting-label" for="ratio-select">裁切比例</label>
+          <select class="setting-select" id="ratio-select">
+            <option value="3:4">3:4 · CET 报名</option><option value="1:1">1:1 · 正方形</option><option value="2:3">2:3 · 竖版</option><option value="4:3">4:3 · 横版</option><option value="16:9">16:9 · 宽屏</option><option value="custom">自定义比例</option>
+          </select>
         </div>
+        <div class="settings-group">
+          <label class="setting-label" for="size-preset">输出分辨率</label>
+          <select class="setting-select" id="size-preset">
+            <option value="144x192">CET 报名 · 144 × 192</option><option value="300x400">证件照 · 300 × 400</option><option value="600x800">高清证件照 · 600 × 800</option><option value="1200x1600">高分辨率 · 1200 × 1600</option><option value="512x512">正方形 · 512 × 512</option><option value="custom">自定义尺寸</option>
+          </select>
+        </div>
+        <div class="dimension-fields">
+          <label>宽度 <span><input id="output-width" type="number" min="1" max="10000" value="144" inputmode="numeric"> px</span></label>
+          <button type="button" class="ratio-lock" id="ratio-lock" aria-pressed="true" title="锁定比例">🔒 <span>锁定比例</span></button>
+          <label>高度 <span><input id="output-height" type="number" min="1" max="10000" value="192" inputmode="numeric"> px</span></label>
+        </div>
+        <div class="settings-group format-setting">
+          <label class="setting-label" for="format-select">文件格式</label>
+          <select class="setting-select" id="format-select"><option value="jpeg">JPEG（.jpg）</option><option value="png">PNG（无损）</option><option value="webp">WebP</option></select>
+        </div>
+        <label class="limit-toggle"><span><strong>限制文件大小</strong><small>JPEG / WebP 自动优化画质，PNG 保持无损</small></span><input id="size-limit" type="checkbox" checked><span class="toggle-track" aria-hidden="true"></span></label>
+        <div class="estimate-row"><span>预估文件大小</span><strong id="size-estimate">等待照片</strong></div>
         <div class="export-result" id="export-result" hidden>
           <div class="result-preview"><img id="result-image" alt="已导出的证件照预览"></div>
           <div class="result-copy"><strong>照片已准备好</strong><span id="result-meta"></span></div>
