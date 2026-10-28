@@ -1,9 +1,28 @@
-# CET4/6 Photo Cropper
+# CET 四六级报名照片轻裁工具
 
-A local-only browser tool for preparing CET registration portraits.
+一个在浏览器本地运行的照片裁切工具，帮助你将证件照裁切并导出为合适的报名照片。
 
-- Crop locally in your browser; photos are never uploaded.
-- Export JPG at 144 × 192 px and at most 200 KB.
-- Works on desktop and mobile browsers.
+## 功能
 
-Open the published site on GitHub Pages and select a local image to begin.
+- 支持 JPG、PNG、WebP 图片。
+- 所有裁切、估算和压缩都在当前设备的浏览器内完成，照片不会上传到服务器。
+- 支持 3:4、1:1、2:3、4:3、16:9 比例，以及自定义裁切比例。
+- 提供 CET 144×192、300×400、600×800、1200×1600、512×512 等预设尺寸，也可自定义宽高并锁定比例。
+- 支持 JPEG（`.jpg`）、PNG 和 WebP 输出。
+- 可开启或关闭 200 KB 大小限制。开启时 JPEG/WebP 会尝试自动优化画质；PNG 保持无损，超限时会提示。
+- 根据照片、尺寸、格式和裁切状态估算输出大小；导出后显示实际大小。
+- 电脑可拖动裁切、使用鼠标滚轮缩放；手机可拖动、双指缩放。
+
+## 使用方法
+
+1. 打开 GitHub Pages 网页，选择一张本地照片。
+2. 拖动照片调整构图；在手机上可双指缩放，电脑上可滚动鼠标滚轮缩放。
+3. 选择裁切比例、输出尺寸和格式；需要时修改 200 KB 限制开关。
+4. 确认输出大小估算，点击“生成照片”，然后下载文件。
+
+> CET 报名默认规格为 144×192 像素、JPEG、文件大小不超过 200 KB。报名系统可能另有照片要求，请以具体报名页面说明为准。
+
+## 本地运行
+
+下载仓库文件后，直接用现代浏览器打开 `index.html` 即可，无需安装依赖或启动后端。
+
