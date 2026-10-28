@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f6f2">
+  <meta name="description" content="在浏览器本地裁切证件照，导出 144×192 JPG，满足 CET-4/CET-6 报名照片尺寸要求。">
+  <title>证件照轻裁 · CET 报名照片</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="证件照轻裁首页">
+        <span class="brand-mark" aria-hidden="true">像</span>
+        <span>轻裁 <span class="brand-muted">PHOTO STUDIO</span></span>
+      </a>
+      <span class="privacy-pill"><span class="privacy-dot"></span>照片仅在本机处理</span>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow"><span class="eyebrow-line"></span> CET-4 / CET-6 · 报名照片工具</p>
+      <h1 id="page-title">一张照片，<span>刚好合规。</span></h1>
+      <p class="intro-copy">裁切证件照并导出报名所需规格。简单几步，照片始终留在你的设备里。</p>
+    </section>
+
+    <section class="workbench" aria-label="照片裁切工作区">
+      <div class="editor-card">
+        <div class="card-heading">
+          <div><span class="step-index">01</span><h2>调整照片</h2></div>
+          <label class="replace-button" for="file-input" id="replace-label" hidden>更换照片 <span aria-hidden="true">↗</span></label>
+        </div>
+
+        <div class="empty-state" id="empty-state">
+          <div class="upload-illustration" aria-hidden="true">
+            <span class="upload-sun"></span><span class="upload-mountain"></span><span class="upload-plus">＋</span>
+          </div>
+          <h3>从一张照片开始</h3>
+          <p>选择清晰的正面证件照，效果更好</p>
+          <label class="primary-button upload-button" for="file-input"><span aria-hidden="true">＋</span> 选择本地照片</label>
+          <span class="file-hint">JPG、PNG 或 WebP · 最大 30 MB</span>
+        </div>
+
+        <div class="editor-content" id="editor-content" hidden>
+          <div class="crop-stage-wrap">
+            <div class="crop-stage" id="crop-stage" role="img" aria-label="照片裁切区域，可拖动照片调整构图">
+              <canvas id="crop-canvas" width="360" height="480"></canvas>
+              <div class="crop-guide" aria-hidden="true"><span></span><span></span><span></span></div>
+              <span class="stage-badge">3:4 裁切框</span>
+            </div>
+          </div>
+          <div class="crop-hint"><span class="hint-icon" aria-hidden="true">✳</span><span>拖动照片调整位置</span><span class="hint-separator">·</span><span>用滑杆缩放</span></div>
+          <div class="zoom-control">
+            <span class="zoom-label">缩放</span>
+            <button class="zoom-button" id="zoom-out" type="button" aria-label="缩小照片">−</button>
+            <input id="zoom-slider" type="range" min="1" max="3" step="0.01" value="1" aria-label="照片缩放">
+            <button class="zoom-button" id="zoom-in" type="button" aria-label="放大照片">＋</button>
+            <span class="zoom-value" id="zoom-value">100%</span>
+          </div>
+        </div>
+        <input id="file-input" type="file" accept="image/jpeg,image/png,image/webp,image/*" hidden>
+      </div>
+
+      <aside class="export-card" aria-label="导出设置">
+        <div class="card-heading export-heading"><div><span class="step-index">02</span><h2>导出规格</h2></div></div>
+        <div class="spec-intro"><div class="spec-icon" aria-hidden="true">▧</div><div><strong>报名照片标准</strong><span>系统将自动优化文件大小</span></div></div>
+        <div class="spec-list">
+          <div class="spec-row"><span>照片尺寸</span><strong>144 <i>×</i> 192 <small>px</small></strong></div>
+          <div class="spec-row"><span>文件格式</span><strong><span class="format-dot"></span>JPG</strong></div>
+          <div class="spec-row"><span>文件大小</span><strong>≤ 200 <small>KB</small></strong></div>
+        </div>
+        <div class="export-result" id="export-result" hidden>
+          <div class="result-preview"><img id="result-image" alt="已导出的证件照预览"></div>
+          <div class="result-copy"><strong>照片已准备好</strong><span id="result-meta"></span></div>
+        </div>
+        <p class="status-message" id="status-message" role="status" aria-live="polite">选择照片后即可开始裁切</p>
+        <button class="primary-button export-button" id="export-button" type="button" disabled><span>生成合规照片</span><span aria-hidden="true">↗</span></button>
+        <a class="download-button" id="download-link" hidden download="cet-photo.jpg">下载 JPG 照片 <span aria-hidden="true">↓</span></a>
+        <p class="privacy-note"><span aria-hidden="true">◈</span> 你的照片不会上传或保存到任何服务器。</p>
+      </aside>
+    </section>
+
+    <footer class="page-footer"><span>为清晰、合规的报名照片而做。</span><span>144 × 192 px&nbsp;&nbsp;·&nbsp;&nbsp; JPG&nbsp;&nbsp;·&nbsp;&nbsp; ≤ 200 KB</span></footer>
+    <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
+
